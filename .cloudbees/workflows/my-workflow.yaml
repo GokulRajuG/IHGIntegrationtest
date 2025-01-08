@@ -14,4 +14,4 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-          start 'https://github.com/GokulRajuG/IHGtest/blob/main/custom-name-dropdown.html'
+          google-chrome 'https://github.com/GokulRajuG/IHGtest/blob/main/custom-name-dropdown.html'
