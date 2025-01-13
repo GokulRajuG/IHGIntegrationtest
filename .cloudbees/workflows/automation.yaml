@@ -1,5 +1,5 @@
 apiVersion: automation.cloudbees.io/v1alpha1
-kind: BuildPipelineConfig
+kind: workflow
 metadata:
   name: buggy-dropdown-app
   description: "Simple HTML file execution"
