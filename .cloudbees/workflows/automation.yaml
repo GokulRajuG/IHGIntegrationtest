@@ -1,8 +1,8 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
 metadata:
-  name: buggy-dropdown-app
-  description: "Simple HTML file execution"
+  name: buggy-dropdown-viewer
+  description: "View HTML in Chrome"
 
 pipeline:
   agent:
@@ -10,7 +10,6 @@ pipeline:
       image: 'nginx:alpine'
 
   environment:
-    APP_NAME: "buggy-dropdown"
     PORT: "8080"
 
   stages:
@@ -22,26 +21,19 @@ pipeline:
                   url: "https://github.com/GokulRajuG/IHGIntegrationtest"
                   branch: main
 
-    - name: Run
+    - name: Serve and View
       steps:
         - sh: |
+            # Copy HTML file
             mkdir -p /usr/share/nginx/html
             cp buggy-dropdown.html /usr/share/nginx/html/index.html
-            cat > /etc/nginx/conf.d/default.conf << 'EOF'
-            server {
-                listen ${PORT};
-                server_name localhost;
-                location / {
-                    root /usr/share/nginx/html;
-                    index index.html;
-                }
-            }
-            EOF
-            nginx -g 'daemon off;'
-
-  options:
-    timeout: 10
-    timestamps: true
+            
+            # Configure nginx
+            echo "server { listen ${PORT}; location / { root /usr/share/nginx/html; } }" > /etc/nginx/conf.d/default.conf
+            
+            # Start nginx and open Chrome
+            nginx
+            google-chrome http://localhost:${PORT}/index.html
 
 triggers:
   - type: manual
