@@ -1,0 +1,26 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My workflow
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    steps:
+      - name: Dropdown job
+        uses: docker://golang:1.20.3-alpine3.17
+        parameters:
+          - choice:
+            name: "Name Selection"
+            choices:
+              - "Gokul"
+            description: "Select your name from the drop-down"
+
+    steps 2:
+      - label: "Display Name"
+        shell: sh
+        run: |
+          echo "You have selected: ${params['Name Selection']}"
