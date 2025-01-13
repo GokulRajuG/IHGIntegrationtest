@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buggy Name Selection</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            /* Bug 1: Missing height property causes centering issues */
+            margin: 0;
+            font-family: Arial;
+            background-color: #f0f0f0;
+            gap: 20px;
+        }
+        /* Bug 2: Missing styles for input field */
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 200px;
+        }
+        /* Bug 3: Incorrect button hover state */
+        button:hover {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- Bug 4: Missing ID for input field -->
+    <input type="text" placeholder="Enter your name">
+    <!-- Bug 5: Wrong onclick function name -->
+    <button onclick="addNewName()">Add Name</button>
+    <!-- Bug 6: Duplicate ID -->
+    <select id="nameSelect">
+        <option value="">Select a name</option>
+    </select>
+    <select id="nameSelect">
+        <option value="">Duplicate Select</option>
+    </select>
+
+    <script>
+        // Bug 7: Function name doesn't match onclick
+        function addName() {
+            const nameInput = document.querySelector('input');
+            const select = document.getElementById('nameSelect');
+            // Bug 8: Missing trim()
+            const name = nameInput.value;
+            
+            // Bug 9: Missing name validation
+            const option = new Option(name, name);
+            select.add(option);
+            // Bug 10: Incorrect property name
+            nameInput.text = '';
+        }
+    </script>
+</body>
+</html>
