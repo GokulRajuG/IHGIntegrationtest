@@ -7,15 +7,19 @@ on:
     branches:
       - '**'
 
-parameters:
-  - choice:
-      name: "Name Selection"
-      choices:
-        - "Gokul"
-      description: "Select your name from the dropdown"
-
-stages:
-  - stage: "Display Name"
+jobs:
+  build:
     steps:
-      - script: |
-          echo "You have selected: ${params['Name Selection']}"
+      - name: Dropdown Job
+        uses: docker://golang:1.20.3-alpine3.17
+    parameters:
+        - choice:
+          name: "Name Selection"
+          choices:
+            - "YourName"
+          description: "Select your name from the dropdown"
+            
+    steps 2:
+      - label: "Display Name"
+        shell: |
+        echo "You have selected: ${params['Name Selection']}"
