@@ -19,7 +19,7 @@ pipeline:
         - checkout:
             scm:
               - git:
-                  url: "https://github.com/GokulRajuG/IHGtest"
+                  url: "https://github.com/GokulRajuG/IHGIntegrationtest"
                   branch: main
 
     - name: Run
