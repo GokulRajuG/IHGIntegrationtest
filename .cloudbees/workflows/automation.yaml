@@ -24,7 +24,6 @@ pipeline:
     - name: Serve and View
       steps:
         - sh: |
-            # Copy HTML file
             mkdir -p /usr/share/nginx/html
             cp buggy-dropdown.html /usr/share/nginx/html/index.html
             
