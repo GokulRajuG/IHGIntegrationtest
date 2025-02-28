@@ -1,0 +1,42 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: Dropdown Display Workflow
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  display-dropdown:
+    steps:
+      - name: Set up Node.js
+        uses: docker://node:18-alpine
+
+      - name: Run JavaScript to Display Dropdown
+        uses: docker://node:18-alpine
+        shell: sh
+        run: |
+          echo '<!DOCTYPE html>
+          <html>
+          <head>
+            <title>Dropdown Example</title>
+            <script>
+              function showDropdown() {
+                let dropdown = document.getElementById("nameDropdown");
+                dropdown.innerHTML = `<select>
+                  <option selected>Your Name</option>
+                  <option value="John Doe">John Doe</option>
+                  <option value="Jane Doe">Jane Doe</option>
+                </select>`;
+              }
+              window.onload = showDropdown;
+            </script>
+          </head>
+          <body>
+            <h2>Select Your Name</h2>
+            <div id="nameDropdown"></div>
+          </body>
+          </html>' > index.html
+          
+          echo "HTML file with dropdown created successfully!"
